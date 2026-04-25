@@ -7,8 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="rest-api" />
+        <module name="energy-javafx-gui" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="energy_javafx" target="21" />
+      <module name="energy_javafx_gui" target="21" />
+      <module name="javafx_gui" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

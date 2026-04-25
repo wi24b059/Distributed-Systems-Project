@@ -5,8 +5,19 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/rest-api/pom.xml" />
+        <option value="$PROJECT_DIR$/energy_javafx_gui/pom.xml" />
+        <option value="$PROJECT_DIR$/energy_javafx/pom.xml" />
+        <option value="$PROJECT_DIR$/disysbwi26_1_fx/pom.xml" />
+        <option value="$PROJECT_DIR$/energy-javafx-gui/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/energy_javafx_gui/pom.xml" />
+      </set>
+    </option>
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="openjdk-25" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="zulu-21" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/energy_javafx" />
+  </component>
 </project>
