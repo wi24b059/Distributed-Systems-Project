@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.energy</groupId>
-	<artifactId>rest-api</artifactId>
+	<artifactId>energy-rest-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
 	<description/>
