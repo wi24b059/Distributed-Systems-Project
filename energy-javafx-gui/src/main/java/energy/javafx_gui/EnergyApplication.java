@@ -9,10 +9,13 @@ import java.io.IOException;
 
 public class EnergyApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(EnergyApplication.class.getResource("EnergyView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+    public void start(Stage stage) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                EnergyApplication.class.getResource("EnergyView.fxml")
+        );
+
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Energy Community Dashboard");
         stage.setScene(scene);
         stage.show();
     }
