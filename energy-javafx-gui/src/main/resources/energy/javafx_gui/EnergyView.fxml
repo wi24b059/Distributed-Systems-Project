@@ -3,14 +3,59 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="energy.javafx_gui.EnergyController">
+<VBox spacing="12" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="energy.javafx_gui.controller.EnergyController">
+
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets top="15" right="15" bottom="15" left="15"/>
     </padding>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <Label text="Current Energy Data"/>
+
+    <HBox spacing="10">
+        <Label text="Hour:"/>
+        <Label fx:id="hourLabel" text="---"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Community Depleted:"/>
+        <Label fx:id="communityDepletedLabel" text="---"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Grid Portion:"/>
+        <Label fx:id="gridPortionLabel" text="---"/>
+    </HBox>
+
+    <Button text="Refresh" onAction="#onRefreshCurrentData"/>
+
+    <Label text="Historical Energy Data"/>
+
+    <HBox spacing="10">
+        <Label text="Start:"/>
+        <TextField fx:id="startField" prefWidth="220"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="End:"/>
+        <TextField fx:id="endField" prefWidth="220"/>
+    </HBox>
+
+    <Button text="Show Data" onAction="#onShowHistoricalData"/>
+
+    <TableView fx:id="historicalTable" prefHeight="260">
+        <columns>
+            <TableColumn fx:id="hourColumn" text="Hour" prefWidth="170"/>
+            <TableColumn fx:id="communityProducedColumn" text="Community Produced" prefWidth="140"/>
+            <TableColumn fx:id="communityUsedColumn" text="Community Used" prefWidth="140"/>
+            <TableColumn fx:id="gridUsedColumn" text="Grid Used" prefWidth="120"/>
+        </columns>
+    </TableView>
 </VBox>
