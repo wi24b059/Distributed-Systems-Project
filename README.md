@@ -78,7 +78,7 @@ This guide will help you set up and run the project using IntelliJ and Maven.
 
 ### Installation
 
-1. Clone or download the project from the GitHub repository.
+1. Clone or download the project from the GitHub repository.[GitHub repository](https://github.com/wi24b059/Distributed-Systems-Project.git).
 2. Open the project in IntelliJ IDEA.
 3. Make sure all Maven dependencies are loaded correctly.
 
