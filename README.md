@@ -86,12 +86,12 @@ This guide will help you set up and run the project using IntelliJ and Maven.
 
 1. Open the `energy-rest-api` module in IntelliJ IDEA.
 2. Start the Spring Boot application.
-3. The REST API will run on port `8081`.
+3. The REST API will run on port `9090`.
 
 Example endpoints:
 
-* `http://localhost:8081/energy/current`
-* `http://localhost:8081/energy/historical?start=2025-01-10T06:00:00&end=2025-01-10T14:00:00`
+* `http://localhost:9090/energy/current`
+* `http://localhost:9090/energy/historical?start=2025-01-10T06:00:00&end=2025-01-10T14:00:00`
 
 ### Running the GUI
 
