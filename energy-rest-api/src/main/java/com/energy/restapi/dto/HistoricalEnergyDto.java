@@ -3,6 +3,7 @@ package com.energy.restapi.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class HistoricalEnergyDto {
+
     private String hour;
 
     @JsonProperty("community_produced")
@@ -17,7 +18,12 @@ public class HistoricalEnergyDto {
     public HistoricalEnergyDto() {
     }
 
-    public HistoricalEnergyDto(String hour, double communityProduced, double communityUsed, double gridUsed) {
+    public HistoricalEnergyDto(
+            String hour,
+            double communityProduced,
+            double communityUsed,
+            double gridUsed
+    ) {
         this.hour = hour;
         this.communityProduced = communityProduced;
         this.communityUsed = communityUsed;

@@ -3,6 +3,7 @@ package com.energy.restapi.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CurrentEnergyDto {
+
     private String hour;
 
     @JsonProperty("community_depleted")
