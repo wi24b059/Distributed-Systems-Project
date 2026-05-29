@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/disysbwi26_1_fx/pom.xml" />
         <option value="$PROJECT_DIR$/energy-javafx-gui/pom.xml" />
         <option value="$PROJECT_DIR$/energy-rest-api/pom.xml" />
+        <option value="$PROJECT_DIR$/usage-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
