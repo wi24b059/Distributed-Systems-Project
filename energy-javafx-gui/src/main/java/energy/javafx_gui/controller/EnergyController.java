@@ -17,7 +17,9 @@ import javafx.scene.control.TextField;
 import java.util.List;
 
 public class EnergyController {
+
     private final EnergyApiService energyApiService = new EnergyApiService();
+
     private final ObservableList<HistoricalEnergyDto> historicalData =
             FXCollections.observableArrayList();
 

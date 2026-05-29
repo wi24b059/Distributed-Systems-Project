@@ -1,6 +1,7 @@
 package energy.javafx_gui.dto;
 
 public class HistoricalEnergyDto {
+
     private String hour;
     private double community_produced;
     private double community_used;

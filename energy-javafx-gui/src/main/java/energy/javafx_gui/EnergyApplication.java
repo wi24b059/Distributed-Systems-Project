@@ -5,9 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class EnergyApplication extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(

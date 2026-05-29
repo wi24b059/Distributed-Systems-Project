@@ -1,6 +1,7 @@
 package energy.javafx_gui.dto;
 
 public class CurrentEnergyDto {
+
     private String hour;
     private double community_depleted;
     private double grid_portion;
