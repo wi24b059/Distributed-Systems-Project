@@ -4,6 +4,7 @@ import com.energy.userservice.dto.EnergyMessageDto;
 import com.energy.userservice.dto.UsageDataUpdatedDto;
 import com.energy.userservice.model.UsageDataEntity;
 import com.energy.userservice.repository.UsageDataRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ public class UsageProcessingService {
 
     private final UsageDataRepository usageDataRepository;
     private final RabbitTemplate rabbitTemplate;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public UsageProcessingService(
             UsageDataRepository usageDataRepository,
@@ -24,26 +26,29 @@ public class UsageProcessingService {
     }
 
     public void processEnergyMessage(EnergyMessageDto message) {
-        if (!"COMMUNITY".equalsIgnoreCase(message.getAssociation())) {
-            return;
-        }
-
-        LocalDateTime usageHour = LocalDateTime.parse(message.getDatetime())
+        LocalDateTime messageDateTime = LocalDateTime.parse(message.getDatetime());
+        LocalDateTime usageHour = messageDateTime
                 .withMinute(0)
                 .withSecond(0)
                 .withNano(0);
 
-        UsageDataEntity usageDataEntity = usageDataRepository
-                .findById(usageHour)
-                .orElseGet(() -> createEmptyUsageDataEntity(usageHour));
+        UsageDataEntity usageDataEntity = usageDataRepository.findById(usageHour)
+                .orElseGet(() -> {
+                    UsageDataEntity newEntity = new UsageDataEntity();
+                    newEntity.setHour(usageHour);
+                    newEntity.setCommunityProduced(0.0);
+                    newEntity.setCommunityUsed(0.0);
+                    newEntity.setGridUsed(0.0);
+                    return newEntity;
+                });
 
-        if ("PRODUCER".equalsIgnoreCase(message.getType())) {
-            double updatedProduced = usageDataEntity.getCommunityProduced() + message.getKwh();
-            usageDataEntity.setCommunityProduced(updatedProduced);
+        if ("PRODUCER".equals(message.getType())) {
+            usageDataEntity.setCommunityProduced(
+                    usageDataEntity.getCommunityProduced() + message.getKwh()
+            );
+        }
 
-        } else if ("USER".equalsIgnoreCase(message.getType())) {
-            double requestedEnergy = message.getKwh();
-
+        if ("USER".equals(message.getType())) {
             double availableCommunityEnergy =
                     usageDataEntity.getCommunityProduced() - usageDataEntity.getCommunityUsed();
 
@@ -51,8 +56,8 @@ public class UsageProcessingService {
                 availableCommunityEnergy = 0;
             }
 
-            double communityPart = Math.min(requestedEnergy, availableCommunityEnergy);
-            double gridPart = requestedEnergy - communityPart;
+            double communityPart = Math.min(message.getKwh(), availableCommunityEnergy);
+            double gridPart = message.getKwh() - communityPart;
 
             usageDataEntity.setCommunityUsed(
                     usageDataEntity.getCommunityUsed() + communityPart
@@ -61,34 +66,34 @@ public class UsageProcessingService {
             usageDataEntity.setGridUsed(
                     usageDataEntity.getGridUsed() + gridPart
             );
-        } else {
-            throw new IllegalArgumentException("Unknown message type: " + message.getType());
         }
 
-        UsageDataEntity savedUsageData = usageDataRepository.save(usageDataEntity);
-
-        UsageDataUpdatedDto updateMessage = new UsageDataUpdatedDto(
-                savedUsageData.getHour().toString(),
-                savedUsageData.getCommunityProduced(),
-                savedUsageData.getCommunityUsed(),
-                savedUsageData.getGridUsed()
-        );
-
-        rabbitTemplate.convertAndSend("usage-data-updated-queue", updateMessage);
+        usageDataRepository.save(usageDataEntity);
 
         System.out.println("Saved usage data:");
-        System.out.println("Hour: " + savedUsageData.getHour());
-        System.out.println("Produced: " + savedUsageData.getCommunityProduced());
-        System.out.println("Used: " + savedUsageData.getCommunityUsed());
-        System.out.println("Grid used: " + savedUsageData.getGridUsed());
+        System.out.println("Hour: " + usageDataEntity.getHour());
+        System.out.println("Produced: " + usageDataEntity.getCommunityProduced());
+        System.out.println("Used: " + usageDataEntity.getCommunityUsed());
+        System.out.println("Grid used: " + usageDataEntity.getGridUsed());
+
+        sendUsageUpdateMessage(usageDataEntity);
     }
 
-    private UsageDataEntity createEmptyUsageDataEntity(LocalDateTime usageHour) {
-        UsageDataEntity usageDataEntity = new UsageDataEntity();
-        usageDataEntity.setHour(usageHour);
-        usageDataEntity.setCommunityProduced(0.0);
-        usageDataEntity.setCommunityUsed(0.0);
-        usageDataEntity.setGridUsed(0.0);
-        return usageDataEntity;
+    private void sendUsageUpdateMessage(UsageDataEntity usageDataEntity) {
+        try {
+            UsageDataUpdatedDto usageDataUpdatedDto = new UsageDataUpdatedDto(
+                    usageDataEntity.getHour().toString(),
+                    usageDataEntity.getCommunityProduced(),
+                    usageDataEntity.getCommunityUsed(),
+                    usageDataEntity.getGridUsed()
+            );
+
+            String jsonMessage = objectMapper.writeValueAsString(usageDataUpdatedDto);
+
+            rabbitTemplate.convertAndSend("usage-data-updated-queue", jsonMessage);
+
+        } catch (Exception exception) {
+            System.out.println("Usage update send error: " + exception.getMessage());
+        }
     }
 }
