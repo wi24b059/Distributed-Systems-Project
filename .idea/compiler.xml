@@ -9,6 +9,7 @@
         <module name="energy-javafx-gui" />
         <module name="usage-service" />
         <module name="energy-rest-api" />
+        <module name="energy-consumer-service" />
         <module name="energy-producer-service" />
       </profile>
     </annotationProcessing>
@@ -22,6 +23,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="energy-consumer-service" options="-parameters" />
       <module name="energy-producer-service" options="-parameters" />
       <module name="energy-rest-api" options="-parameters" />
       <module name="usage-service" options="-parameters" />
