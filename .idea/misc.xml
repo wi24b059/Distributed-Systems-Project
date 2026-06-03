@@ -13,6 +13,7 @@
         <option value="$PROJECT_DIR$/usage-service/pom.xml" />
         <option value="$PROJECT_DIR$/energy-javafx-gui/energy-producer/pom.xml" />
         <option value="$PROJECT_DIR$/energy-producer-service/pom.xml" />
+        <option value="$PROJECT_DIR$/energy-consumer-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
