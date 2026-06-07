@@ -5,10 +5,10 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.3</version>
-        <relativePath/>
+        <version>3.2.3</version>
+        <relativePath/> 
     </parent>
-
+    
     <groupId>com.energy</groupId>
     <artifactId>consumer-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -22,5 +22,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 </project>

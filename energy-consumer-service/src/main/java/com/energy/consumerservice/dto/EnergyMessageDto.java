@@ -1,6 +1,5 @@
 package com.energy.consumerservice.dto;
 
-
 public class EnergyMessageDto {
     private String type;
     private String association;
