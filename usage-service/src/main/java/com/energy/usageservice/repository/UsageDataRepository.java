@@ -1,6 +1,6 @@
-package com.energy.userservice.repository;
+package com.energy.usageservice.repository;
 
-import com.energy.userservice.model.UsageDataEntity;
+import com.energy.usageservice.model.UsageDataEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;

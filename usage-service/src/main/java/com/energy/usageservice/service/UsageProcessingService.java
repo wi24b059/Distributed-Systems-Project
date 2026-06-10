@@ -1,9 +1,9 @@
-package com.energy.userservice.service;
+package com.energy.usageservice.service;
 
-import com.energy.userservice.dto.EnergyMessageDto;
-import com.energy.userservice.dto.UsageDataUpdatedDto;
-import com.energy.userservice.model.UsageDataEntity;
-import com.energy.userservice.repository.UsageDataRepository;
+import com.energy.usageservice.dto.EnergyMessageDto;
+import com.energy.usageservice.dto.UsageDataUpdatedDto;
+import com.energy.usageservice.model.UsageDataEntity;
+import com.energy.usageservice.repository.UsageDataRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
