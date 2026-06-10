@@ -15,14 +15,14 @@ public class UsageProcessingService {
 
     private final UsageDataRepository usageDataRepository;
     private final RabbitTemplate rabbitTemplate;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
-    public UsageProcessingService(
-            UsageDataRepository usageDataRepository,
-            RabbitTemplate rabbitTemplate
-    ) {
+    public UsageProcessingService(UsageDataRepository usageDataRepository,
+                                  RabbitTemplate rabbitTemplate,
+                                  ObjectMapper objectMapper) {
         this.usageDataRepository = usageDataRepository;
         this.rabbitTemplate = rabbitTemplate;
+        this.objectMapper = objectMapper;
     }
 
     public void processEnergyMessage(EnergyMessageDto message) {
