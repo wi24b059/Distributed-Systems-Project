@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 public class EnergyMessageListener {
 
     private final UsageProcessingService usageProcessingService;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
-    public EnergyMessageListener(UsageProcessingService usageProcessingService) {
+    public EnergyMessageListener(UsageProcessingService usageProcessingService,
+                                 ObjectMapper objectMapper) {
         this.usageProcessingService = usageProcessingService;
+        this.objectMapper = objectMapper;
     }
 
     @RabbitListener(queues = "community-energy-events-queue")

@@ -1,5 +1,6 @@
 package com.energy.userservice;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.Queue;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +17,11 @@ public class UsageServiceApplication {
 	@Bean
 	public Queue usageDataUpdatedQueue() {
 		return new Queue("usage-data-updated-queue", true);
+	}
+
+	@Bean
+	public ObjectMapper objectMapper() {
+		return new ObjectMapper();
 	}
 
 	public static void main(String[] args) {
