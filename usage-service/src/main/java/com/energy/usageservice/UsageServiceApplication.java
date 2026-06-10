@@ -1,4 +1,4 @@
-package com.energy.userservice;
+package com.energy.usageservice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.Queue;

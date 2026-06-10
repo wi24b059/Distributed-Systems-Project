@@ -1,7 +1,7 @@
-package com.energy.userservice.messaging;
+package com.energy.usageservice.messaging;
 
-import com.energy.userservice.dto.EnergyMessageDto;
-import com.energy.userservice.service.UsageProcessingService;
+import com.energy.usageservice.dto.EnergyMessageDto;
+import com.energy.usageservice.service.UsageProcessingService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;

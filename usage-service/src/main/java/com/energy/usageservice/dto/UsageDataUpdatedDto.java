@@ -1,4 +1,4 @@
-package com.energy.userservice.dto;
+package com.energy.usageservice.dto;
 
 public class UsageDataUpdatedDto {
 
