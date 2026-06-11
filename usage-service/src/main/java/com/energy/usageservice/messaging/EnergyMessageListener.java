@@ -1,7 +1,7 @@
-package com.energy.userservice.messaging;
+package com.energy.usageservice.messaging;
 
-import com.energy.userservice.dto.EnergyMessageDto;
-import com.energy.userservice.service.UsageProcessingService;
+import com.energy.usageservice.dto.EnergyMessageDto;
+import com.energy.usageservice.service.UsageProcessingService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 public class EnergyMessageListener {
 
     private final UsageProcessingService usageProcessingService;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
-    public EnergyMessageListener(UsageProcessingService usageProcessingService) {
+    public EnergyMessageListener(UsageProcessingService usageProcessingService,
+                                 ObjectMapper objectMapper) {
         this.usageProcessingService = usageProcessingService;
+        this.objectMapper = objectMapper;
     }
 
     @RabbitListener(queues = "community-energy-events-queue")

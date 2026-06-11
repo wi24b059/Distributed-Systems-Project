@@ -1,9 +1,9 @@
-package com.energy.userservice.service;
+package com.energy.usageservice.service;
 
-import com.energy.userservice.dto.EnergyMessageDto;
-import com.energy.userservice.dto.UsageDataUpdatedDto;
-import com.energy.userservice.model.UsageDataEntity;
-import com.energy.userservice.repository.UsageDataRepository;
+import com.energy.usageservice.dto.EnergyMessageDto;
+import com.energy.usageservice.dto.UsageDataUpdatedDto;
+import com.energy.usageservice.model.UsageDataEntity;
+import com.energy.usageservice.repository.UsageDataRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -15,14 +15,14 @@ public class UsageProcessingService {
 
     private final UsageDataRepository usageDataRepository;
     private final RabbitTemplate rabbitTemplate;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
-    public UsageProcessingService(
-            UsageDataRepository usageDataRepository,
-            RabbitTemplate rabbitTemplate
-    ) {
+    public UsageProcessingService(UsageDataRepository usageDataRepository,
+                                  RabbitTemplate rabbitTemplate,
+                                  ObjectMapper objectMapper) {
         this.usageDataRepository = usageDataRepository;
         this.rabbitTemplate = rabbitTemplate;
+        this.objectMapper = objectMapper;
     }
 
     public void processEnergyMessage(EnergyMessageDto message) {
