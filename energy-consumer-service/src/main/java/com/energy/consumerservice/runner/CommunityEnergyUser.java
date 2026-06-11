@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.Random;
 
 @Component
@@ -51,11 +50,16 @@ public class CommunityEnergyUser implements CommandLineRunner {
         dto.setType("USER");
         dto.setAssociation("COMMUNITY");
         dto.setKwh(kwh);
-        dto.setDatetime(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        dto.setDatetime(LocalDateTime.now().withNano(0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 
         String jsonPayload = objectMapper.writeValueAsString(dto);
         rabbitTemplate.convertAndSend("community-energy-events-queue", jsonPayload);
 
-        System.out.printf(Locale.US, "Used: %.5f kWh%n", dto.getKwh());
+        System.out.println(
+                "Type: " + dto.getType()
+                        + ", Association: " + dto.getAssociation()
+                        + ", kWh: " + dto.getKwh()
+                        + ", Datetime: " + dto.getDatetime()
+        );
     }
 }

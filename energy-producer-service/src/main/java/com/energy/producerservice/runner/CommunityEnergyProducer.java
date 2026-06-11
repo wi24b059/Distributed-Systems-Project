@@ -12,7 +12,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -49,22 +48,22 @@ public class CommunityEnergyProducer implements CommandLineRunner {
                 HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
                 if (response.body().contains("\"is_day\":1")) {
-                    kwh += 0.001; 
+                    kwh += 0.001;
                     Matcher matcher = weatherCodePattern.matcher(response.body());
-                    
+
                     if (matcher.find()) {
                         int weatherCode = Integer.parseInt(matcher.group(1));
-                        if (weatherCode == 0 || weatherCode == 1) { 
+                        if (weatherCode == 0 || weatherCode == 1) {
                             kwh += 0.004;
-                        } else if (weatherCode == 2) { 
+                        } else if (weatherCode == 2) {
                             kwh += 0.002;
                         }
                     }
                 }
-                kwh += (random.nextDouble() * 0.001); 
+                kwh += (random.nextDouble() * 0.001);
 
             } catch (Exception e) {
-                kwh = 0.003; 
+                kwh = 0.003;
             }
 
             sendEnergyMessage(kwh);
@@ -76,11 +75,16 @@ public class CommunityEnergyProducer implements CommandLineRunner {
         dto.setType("PRODUCER");
         dto.setAssociation("COMMUNITY");
         dto.setKwh(kwh);
-        dto.setDatetime(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        dto.setDatetime(LocalDateTime.now().withNano(0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 
         String jsonPayload = objectMapper.writeValueAsString(dto);
         rabbitTemplate.convertAndSend("community-energy-events-queue", jsonPayload);
 
-        System.out.printf(Locale.US, "Produced: %.5f kWh%n", dto.getKwh());
+        System.out.println(
+                "Type: " + dto.getType()
+                        + ", Association: " + dto.getAssociation()
+                        + ", kWh: " + dto.getKwh()
+                        + ", Datetime: " + dto.getDatetime()
+        );
     }
 }

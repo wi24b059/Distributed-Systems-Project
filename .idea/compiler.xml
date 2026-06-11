@@ -8,19 +8,18 @@
         <outputRelativeToContentRoot value="true" />
         <module name="energy-javafx-gui" />
         <module name="usage-service" />
-        <module name="energy-rest-api" />
         <module name="energy-consumer-service" />
         <module name="energy-producer-service" />
+        <module name="energy-rest-api" />
+        <module name="percentage-service" />
         <module name="consumer-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="community-energy-producer" target="21" />
       <module name="community-energy-user" target="21" />
-      <module name="consumer-service" target="17" />
       <module name="energy_javafx" target="21" />
       <module name="energy_javafx_gui" target="21" />
-      <module name="percentage-service" target="21" />
       <module name="producer-service" target="17" />
     </bytecodeTargetLevel>
   </component>
@@ -30,6 +29,7 @@
       <module name="energy-consumer-service" options="-parameters" />
       <module name="energy-producer-service" options="-parameters" />
       <module name="energy-rest-api" options="-parameters" />
+      <module name="percentage-service" options="-parameters" />
       <module name="usage-service" options="-parameters" />
     </option>
   </component>
