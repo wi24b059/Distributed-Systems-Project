@@ -1,4 +1,4 @@
-package com.energy.percentageservice;
+package com.energy.producerservice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.Queue;
@@ -7,19 +7,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class CurrentPercentageServiceApplication {
+public class ProducerServiceApplication {
 
     @Bean
-    public Queue usageDataUpdatedQueue() {
-        return new Queue("usage-data-updated-queue", true);
+    public Queue communityEnergyEventsQueue() {
+        return new Queue("community-energy-events-queue", true);
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(ProducerServiceApplication.class, args);
     }
 
     @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(CurrentPercentageServiceApplication.class, args);
     }
 }
