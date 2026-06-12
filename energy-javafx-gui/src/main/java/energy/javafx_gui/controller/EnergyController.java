@@ -45,13 +45,13 @@ public class EnergyController {
     private TableColumn<HistoricalEnergyDto, String> hourColumn;
 
     @FXML
-    private TableColumn<HistoricalEnergyDto, Double> communityProducedColumn;
+    private TableColumn<HistoricalEnergyDto, String> communityProducedColumn;
 
     @FXML
-    private TableColumn<HistoricalEnergyDto, Double> communityUsedColumn;
+    private TableColumn<HistoricalEnergyDto, String> communityUsedColumn;
 
     @FXML
-    private TableColumn<HistoricalEnergyDto, Double> gridUsedColumn;
+    private TableColumn<HistoricalEnergyDto, String> gridUsedColumn;
 
     @FXML
     public void initialize() {
@@ -59,13 +59,13 @@ public class EnergyController {
                 new SimpleStringProperty(cellData.getValue().getHour()));
 
         communityProducedColumn.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getCommunity_produced()));
+                new SimpleStringProperty(String.format("%.2f", cellData.getValue().getCommunity_produced())));
 
         communityUsedColumn.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getCommunity_used()));
+                new SimpleStringProperty(String.format("%.2f", cellData.getValue().getCommunity_used())));
 
         gridUsedColumn.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getGrid_used()));
+                new SimpleStringProperty(String.format("%.2f", cellData.getValue().getGrid_used())));
 
         historicalTable.setItems(historicalData);
 
