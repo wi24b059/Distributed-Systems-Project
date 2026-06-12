@@ -20,7 +20,6 @@
       <module name="community-energy-user" target="21" />
       <module name="energy_javafx" target="21" />
       <module name="energy_javafx_gui" target="21" />
-      <module name="producer-service" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
