@@ -78,31 +78,44 @@ public class EnergyController {
         try {
             CurrentEnergyDto currentEnergyDto = energyApiService.getCurrentEnergyData();
 
+            if (currentEnergyDto == null) {
+                showError("Current energy data is not available.");
+                return;
+            }
+
             hourLabel.setText(currentEnergyDto.getHour());
             communityDepletedLabel.setText(String.format("%.2f %%", currentEnergyDto.getCommunity_depleted()));
             gridPortionLabel.setText(String.format("%.2f %%", currentEnergyDto.getGrid_portion()));
         } catch (Exception exception) {
-            showError("Could not load current energy data.");
+            showError("Current energy data could not be loaded or is not available yet.");
         }
     }
 
     @FXML
     protected void onShowHistoricalData() {
+        String start = startField.getText();
+        String end = endField.getText();
+
+        if (start == null || start.isBlank() || end == null || end.isBlank()) {
+            showError("Please enter start and end datetime in the format yyyy-MM-ddTHH:mm:ss.");
+            return;
+        }
+
         try {
-            String start = startField.getText();
-            String end = endField.getText();
-
-            if (start == null || start.isBlank() || end == null || end.isBlank()) {
-                showError("Please enter start and end datetime in the format yyyy-MM-ddTHH:mm:ss.");
-                return;
-            }
-
             List<HistoricalEnergyDto> result =
                     energyApiService.getHistoricalEnergyData(start, end);
 
+            if (result == null || result.isEmpty()) {
+                historicalData.clear();
+                showError("No historical energy data was found for the selected time range.");
+                return;
+            }
+
             historicalData.setAll(result);
+
         } catch (Exception exception) {
-            showError("Could not load historical energy data.");
+            historicalData.clear();
+            showError("Historical energy data could not be loaded.");
         }
     }
 
