@@ -32,7 +32,11 @@ public class EnergyService {
     public CurrentEnergyDto getCurrentEnergyData() {
         CurrentPercentageEntity currentPercentageEntity = currentPercentageRepository
                 .findTopByOrderByUsageHourDesc()
-                .orElseThrow(() -> new RuntimeException("No current percentage data found."));
+                .orElse(null);
+
+        if (currentPercentageEntity == null) {
+            return null;
+        }
 
         return mapToCurrentEnergyDto(currentPercentageEntity);
     }
@@ -47,10 +51,6 @@ public class EnergyService {
 
         List<UsageDataEntity> usageDataEntities = usageDataRepository
                 .findByUsageHourBetweenOrderByUsageHourAsc(startDateTime, endDateTime);
-
-        if (usageDataEntities.isEmpty()) {
-            throw new RuntimeException("No historical energy data found for the selected time range.");
-        }
 
         return usageDataEntities.stream()
                 .map(this::mapToHistoricalEnergyDto)
