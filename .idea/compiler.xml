@@ -12,7 +12,6 @@
         <module name="energy-producer-service" />
         <module name="energy-rest-api" />
         <module name="percentage-service" />
-        <module name="consumer-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -24,7 +23,6 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="consumer-service" options="-parameters" />
       <module name="energy-consumer-service" options="-parameters" />
       <module name="energy-producer-service" options="-parameters" />
       <module name="energy-rest-api" options="-parameters" />

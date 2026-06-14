@@ -10,7 +10,7 @@
     </parent>
     
     <groupId>com.energy</groupId>
-    <artifactId>consumer-service</artifactId>
+    <artifactId>energy-consumer-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
